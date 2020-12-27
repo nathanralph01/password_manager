@@ -35,7 +35,14 @@ public class LoginMain {
             File new_file = new File(this.file_name);
             boolean created = new_file.createNewFile();
 
-            if (created){}
+            if (created){
+                // Write to file
+                BufferedWriter out_file = new BufferedWriter(new FileWriter(new_file));
+                out_file.write("Hello there");
+            }
+            else{
+                System.out.println("The file: " + this.file_name + " already exists");
+            }
 
         } catch(IOException e){
             System.out.println(e);
