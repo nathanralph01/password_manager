@@ -10,8 +10,9 @@ public class LoginMain {
 
     public LoginMain(String file_name){
         //this.key = key;
-        this.file_name = file_name;
+        this.file_name = file_name + ".txt";
         this.array = new ArrayList();
+
     }
 
     public void getFile(){
@@ -54,9 +55,15 @@ public class LoginMain {
     }
 
     public void editFile(String input_text){
-
+        
     }
 
+    public ArrayList<String> getArray(){
+        return this.array;
+    }
 
+    public void setArray(ArrayList<String> new_array){
+        this.array = new_array;
+    }
 
 }
