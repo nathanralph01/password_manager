@@ -26,6 +26,7 @@ public class LoginMain {
                 String line = s.nextLine();
                 this.array.add(line);
             }
+            s.close();
         }
         catch (FileNotFoundException e){
             System.out.println(e);
@@ -55,7 +56,16 @@ public class LoginMain {
     }
 
     public void editFile(String input_text){
-        
+        try{
+            File out_file = new File(this.file_name);
+            BufferedWriter out = new BufferedWriter(new FileWriter(out_file));
+            if(out_file.exists()) {
+                out.write(input_text);
+            }
+            out.close();
+        }catch (IOException e){
+            System.out.println(e);
+        }
     }
 
     public ArrayList<String> getArray(){
