@@ -57,8 +57,10 @@ public class LoginMain {
             if(out_file.exists()) {
                 for(String i: this.array){
 
-                    out.write(this.array.get(cnt));
-                    out.write("\n");
+                    if(this.array.get(cnt) != "  ") {
+                        out.write(this.array.get(cnt));
+                        out.write("\n");
+                    }
 
                     cnt += 1;
                 }
