@@ -51,18 +51,17 @@ public class LoginMain {
 
     public void editFile(){
         try{
-            int cnt = 0;
             File out_file = new File(this.file_name);
             BufferedWriter out = new BufferedWriter(new FileWriter(out_file));
             if(out_file.exists()) {
                 for(String i: this.array){
 
-                    if(this.array.get(cnt) != "  ") {
-                        out.write(this.array.get(cnt));
+                    if(!i.equals("  ")) {
+                        out.write(i);
                         out.write("\n");
                     }
 
-                    cnt += 1;
+
                 }
 
             }
