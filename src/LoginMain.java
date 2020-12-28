@@ -21,7 +21,6 @@ public class LoginMain {
         try {
             BufferedReader in_file = new BufferedReader(new FileReader(this.file_name));
             Scanner s = new Scanner(in_file);
-            String key = s.nextLine();
             while(s.hasNextLine()){
                 String line = s.nextLine();
                 this.array.add(line);
