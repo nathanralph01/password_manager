@@ -1,14 +1,17 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LoginMain {
 
     private String file_name;
+    private ArrayList<String> array;
     //private String key;
 
     public LoginMain(String file_name){
         //this.key = key;
         this.file_name = file_name;
+        this.array = new ArrayList();
     }
 
     public void getFile(){
@@ -20,6 +23,7 @@ public class LoginMain {
             String key = s.nextLine();
             while(s.hasNextLine()){
                 String line = s.nextLine();
+                this.array.add(line);
             }
         }
         catch (FileNotFoundException e){
@@ -49,8 +53,10 @@ public class LoginMain {
         }
     }
 
-    public void editFile(){
+    public void editFile(String input_text){
 
     }
+
+
 
 }
