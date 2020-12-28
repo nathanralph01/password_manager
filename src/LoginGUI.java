@@ -1,7 +1,6 @@
 package application;
 
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,18 +8,22 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import java.util.ArrayList;
 
 public class LoginGUI extends Application {
 	
 	Scene login;
 	Scene mainScene;
 	Stage window;
+	//ArrayList<String> array;
+	LoginMain file;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -43,11 +46,19 @@ public class LoginGUI extends Application {
 		
 		Button loginButton = new Button("Login");
 		loginButton.setOnAction(e -> {
+			file = new LoginMain(passwordTF.getText());
+			file.getFile();
+			//array = file.getArray();
+			mainScene();
 			window.setScene(mainScene);
 		});
 		grid.add(loginButton, 0, 2);
 		
 		Button registerButton = new Button("Register");
+		registerButton.setOnAction(e -> {
+			file = new LoginMain(passwordTF.getText());
+			file.setFile();
+		});
 		grid.add(registerButton, 1, 2);
 		
 		login = new Scene(grid,500,300);
@@ -57,36 +68,77 @@ public class LoginGUI extends Application {
 	public void mainScene() {
 		
 		BorderPane border = new BorderPane();
-		HBox header = new HBox(50);
-		header.setAlignment(Pos.CENTER);
-		
-		Button add = new Button("Add Entry");
-		Button logout = new Button("Logout");
-		Button edit = new Button ("Edit");
-		
-		header.getChildren().addAll(add,logout,edit);
-		border.setTop(header);
-		
-	    
 		
 		ScrollPane content = new ScrollPane();
 		VBox vbox = new VBox(15);
 		
-		for (int i = 0; i < 3; i++) {
-			HBox hbox = new HBox(25);
+		ArrayList<String> array = file.getArray();;
+		
+		for (int i = 0; i < array.size(); i++) {
+			String[] entry = array.get(i).split(" ");
+			HBox hbox = new HBox(20);
 			
-			Label label1 = new Label("Test1");
-			Label label2 = new Label("Test2");
+			TextField tf1 = new TextField(entry[0]);
+			TextField tf2 = new TextField(entry[1]);
+			TextField tf3 = new TextField(entry[2]);
 			
-			hbox.getChildren().addAll(label1, label2);
+			hbox.getChildren().addAll(tf1, tf2, tf3);
 			vbox.getChildren().add(hbox);
-			
 			
 		}
 		
 		content.setContent(vbox);
 		
 		border.setCenter(content);
+		
+		HBox header = new HBox(50);
+		header.setAlignment(Pos.CENTER);
+		
+		Button add = new Button("Add Entry");
+		add.setOnAction(e -> {
+			HBox hbox = new HBox(20);
+			TextField tf1 = new TextField();
+			TextField tf2 = new TextField();
+			TextField tf3 = new TextField();
+			
+			hbox.getChildren().addAll(tf1, tf2, tf3);
+			vbox.getChildren().add(hbox);
+		});
+		
+		Button logout = new Button("Logout");
+		logout.setOnAction(e -> {
+			window.setScene(login);
+		});
+		
+		Button save = new Button ("save");
+		save.setOnAction(e -> {
+			ArrayList <String> arraytemp = new ArrayList();
+			int entryNumber = vbox.getChildren().size();
+			
+			for (int i = 0; i < entryNumber; i++) {
+				String entry;
+				Node nodeOut = vbox.getChildren().get(i);
+				nodeOut = ((HBox)nodeOut).getChildren().get(0); 
+				entry = ((TextField)nodeOut).getText();
+				
+				nodeOut = vbox.getChildren().get(i);
+				nodeOut = ((HBox)nodeOut).getChildren().get(1); 
+				entry = entry + " " +  ((TextField)nodeOut).getText();
+				
+				nodeOut = vbox.getChildren().get(i);
+				nodeOut = ((HBox)nodeOut).getChildren().get(2);
+				entry = entry + " " +  ((TextField)nodeOut).getText();
+				
+				arraytemp.add(entry);
+			}
+			
+			file.setArray(arraytemp);
+			file.editFile();
+			
+		});
+		
+		header.getChildren().addAll(add,logout,save);
+		border.setTop(header);
 		
 		mainScene = new Scene(border, 500, 300);
 		
@@ -98,7 +150,6 @@ public class LoginGUI extends Application {
 		window = primaryStage;
 		
 		loginScene();
-		mainScene();
 		
 		window.setScene(login);
 		window.show();
