@@ -56,11 +56,9 @@ public class LoginMain {
             BufferedWriter out = new BufferedWriter(new FileWriter(out_file));
             if(out_file.exists()) {
                 for(String i: this.array){
-                    if(cnt > 0 & cnt % 3 == 0){
-                        out.write("\n");
-                    }
 
                     out.write(this.array.get(cnt));
+                    out.write("\n");
 
                     cnt += 1;
                 }
