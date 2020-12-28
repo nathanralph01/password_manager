@@ -54,12 +54,22 @@ public class LoginMain {
         }
     }
 
-    public void editFile(String input_text){
+    public void editFile(){
         try{
+            int cnt = 0;
             File out_file = new File(this.file_name);
             BufferedWriter out = new BufferedWriter(new FileWriter(out_file));
             if(out_file.exists()) {
-                out.write(input_text);
+                for(String i: this.array){
+                    if(cnt > 0 & cnt % 3 == 0){
+                        out.write("\n");
+                    }
+                    if(this.array.get(cnt) != "") {
+                        out.write(this.array.get(cnt));
+                    }
+                    cnt += 1;
+                }
+
             }
             out.close();
         }catch (IOException e){
@@ -74,5 +84,19 @@ public class LoginMain {
     public void setArray(ArrayList<String> new_array){
         this.array = new_array;
     }
+
+    /*
+    public static void main(String[] args){
+        LoginMain temp = new LoginMain("tempfile");
+        temp.getFile();
+        ArrayList<String> temp_array = new ArrayList();
+        temp_array.add("for");
+        temp_array.add("five");
+        temp_array.add("6ix");
+        temp.setArray(temp_array);
+        temp.editFile();
+
+    }
+     */
 
 }
