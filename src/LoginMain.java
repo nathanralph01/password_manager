@@ -40,12 +40,7 @@ public class LoginMain {
             File new_file = new File(this.file_name);
             boolean created = new_file.createNewFile();
 
-            if (created){
-                // Write to file
-                BufferedWriter out_file = new BufferedWriter(new FileWriter(new_file));
-                out_file.write("Hello there");
-            }
-            else{
+            if(!created){
                 System.out.println("The file: " + this.file_name + " already exists");
             }
 
@@ -64,9 +59,9 @@ public class LoginMain {
                     if(cnt > 0 & cnt % 3 == 0){
                         out.write("\n");
                     }
-                    if(this.array.get(cnt) != "") {
-                        out.write(this.array.get(cnt));
-                    }
+
+                    out.write(this.array.get(cnt));
+
                     cnt += 1;
                 }
 
