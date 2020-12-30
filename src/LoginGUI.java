@@ -100,9 +100,9 @@ public class LoginGUI extends Application {
 			String[] entry = array.get(i).split(" ");
 			HBox hbox = new HBox(20);
 			
-			TextField tf1 = new TextField(entry[0]);
-			TextField tf2 = new TextField(entry[1]);
-			TextField tf3 = new TextField(entry[2]);
+			TextField tf1 = new TextField(entry[0].replace("-", " "));
+			TextField tf2 = new TextField(entry[1].replace("-", " "));
+			TextField tf3 = new TextField(entry[2].replace("-", " "));
 			
 			hbox.getChildren().addAll(tf1, tf2, tf3);
 			vbox.getChildren().add(hbox);
@@ -174,6 +174,7 @@ public class LoginGUI extends Application {
 		Node node = vbox.getChildren().get(row);
 		node = ((HBox)node).getChildren().get(column); 
 		entry = ((TextField)node).getText();
+		entry = entry.replace(" ", "-");
 		return entry;
 	}
 	
