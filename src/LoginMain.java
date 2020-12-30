@@ -6,7 +6,6 @@ public class LoginMain {
 
     private String file_name;
     private ArrayList<String> array;
-    //private String key;
 
     public LoginMain(String file_name){
         //this.key = key;
@@ -64,8 +63,6 @@ public class LoginMain {
                         out.write(i);
                         out.write("\n");
                     }
-
-
                 }
 
             }
@@ -82,19 +79,5 @@ public class LoginMain {
     public void setArray(ArrayList<String> new_array){
         this.array = new_array;
     }
-
-    /*
-    public static void main(String[] args){
-        LoginMain temp = new LoginMain("tempfile");
-        temp.getFile();
-        ArrayList<String> temp_array = new ArrayList();
-        temp_array.add("for");
-        temp_array.add("five");
-        temp_array.add("6ix");
-        temp.setArray(temp_array);
-        temp.editFile();
-
-    }
-     */
 
 }
