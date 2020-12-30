@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -44,16 +45,26 @@ public class LoginGUI extends Application {
 		TextField passwordTF = new TextField();
 		grid.add(passwordTF, 0, 1, 2, 1);
 		
+		Label errorLabel = new Label();
+		errorLabel.setTextFill(Color.RED);
+		grid.add(errorLabel, 0, 3, 2, 1);
+		
 		Button loginButton = new Button("Login");
 		loginButton.setOnAction(e -> {
 			if(!passwordTF.getText().isEmpty()) {
 				file = new LoginMain(passwordTF.getText());
-				file.getFile();
+				String fileResult = file.getFile();
+				if(fileResult.equals("good_file")) {
+					mainScene();
+					window.setScene(mainScene);
+				} else if (fileResult.equals("no_file")) {
+					errorLabel.setText("Username does not exist");
+				} else if (fileResult.equals("bad_file")) {
+					errorLabel.setText("File is of incorrect format");
+				}
 				//array = file.getArray();
-				mainScene();
-				window.setScene(mainScene);
 			} else {
-				System.out.println("Invalid username");
+				errorLabel.setText("Username cannot be empty");
 			}
 			
 		});
@@ -66,7 +77,7 @@ public class LoginGUI extends Application {
 				file.setFile();
 				System.out.println("username created");
 			} else {
-				System.out.println("Invalid username");
+				errorLabel.setText("Username cannot be empty");
 			}
 			
 		});
@@ -83,7 +94,7 @@ public class LoginGUI extends Application {
 		ScrollPane content = new ScrollPane();
 		VBox vbox = new VBox(15);
 		
-		ArrayList<String> array = file.getArray();;
+		ArrayList<String> array = file.getArray();
 		
 		for (int i = 0; i < array.size(); i++) {
 			String[] entry = array.get(i).split(" ");
