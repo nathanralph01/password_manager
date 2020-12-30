@@ -46,7 +46,7 @@ public class LoginGUI extends Application {
 		
 		Button loginButton = new Button("Login");
 		loginButton.setOnAction(e -> {
-			if(!passwordTF.getText().isBlank()) {
+			if(!passwordTF.getText().isEmpty()) {
 				file = new LoginMain(passwordTF.getText());
 				file.getFile();
 				//array = file.getArray();
@@ -61,7 +61,7 @@ public class LoginGUI extends Application {
 		
 		Button registerButton = new Button("Register");
 		registerButton.setOnAction(e -> {
-			if(!passwordTF.getText().isBlank()) {
+			if(!passwordTF.getText().isEmpty()) {
 				file = new LoginMain(passwordTF.getText());
 				file.setFile();
 				System.out.println("username created");
