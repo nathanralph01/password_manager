@@ -46,18 +46,29 @@ public class LoginGUI extends Application {
 		
 		Button loginButton = new Button("Login");
 		loginButton.setOnAction(e -> {
-			file = new LoginMain(passwordTF.getText());
-			file.getFile();
-			//array = file.getArray();
-			mainScene();
-			window.setScene(mainScene);
+			if(!passwordTF.getText().isBlank()) {
+				file = new LoginMain(passwordTF.getText());
+				file.getFile();
+				//array = file.getArray();
+				mainScene();
+				window.setScene(mainScene);
+			} else {
+				System.out.println("Invalid username");
+			}
+			
 		});
 		grid.add(loginButton, 0, 2);
 		
 		Button registerButton = new Button("Register");
 		registerButton.setOnAction(e -> {
-			file = new LoginMain(passwordTF.getText());
-			file.setFile();
+			if(!passwordTF.getText().isBlank()) {
+				file = new LoginMain(passwordTF.getText());
+				file.setFile();
+				System.out.println("username created");
+			} else {
+				System.out.println("Invalid username");
+			}
+			
 		});
 		grid.add(registerButton, 1, 2);
 		
@@ -116,8 +127,8 @@ public class LoginGUI extends Application {
 			int entryNumber = vbox.getChildren().size();
 			
 			for (int i = 0; i < entryNumber; i++) {
-				String entry;
-				Node nodeOut = vbox.getChildren().get(i);
+				String entry = "";
+				/*Node nodeOut = vbox.getChildren().get(i);
 				nodeOut = ((HBox)nodeOut).getChildren().get(0); 
 				entry = ((TextField)nodeOut).getText();
 				
@@ -127,9 +138,12 @@ public class LoginGUI extends Application {
 				
 				nodeOut = vbox.getChildren().get(i);
 				nodeOut = ((HBox)nodeOut).getChildren().get(2);
-				entry = entry + " " +  ((TextField)nodeOut).getText();
+				entry = entry + " " +  ((TextField)nodeOut).getText();*/
 				
-				arraytemp.add(entry);
+				for (int k = 0; k < 3; k++) {
+					entry = entry + getTextField(i,k,vbox) + " ";
+				}
+				arraytemp.add(entry.substring(0,entry.length() - 1));
 			}
 			
 			file.setArray(arraytemp);
@@ -144,6 +158,14 @@ public class LoginGUI extends Application {
 		
 	}
 	
+	public String getTextField(int row, int column, VBox vbox) {
+		String entry;
+		Node node = vbox.getChildren().get(row);
+		node = ((HBox)node).getChildren().get(column); 
+		entry = ((TextField)node).getText();
+		return entry;
+	}
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
@@ -151,6 +173,7 @@ public class LoginGUI extends Application {
 		
 		loginScene();
 		
+		window.setTitle("Password Manager");
 		window.setScene(login);
 		window.show();
 		
