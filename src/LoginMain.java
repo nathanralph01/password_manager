@@ -32,7 +32,6 @@ public class LoginMain {
         catch (FileNotFoundException e){
             return "no_file";
         }
-
         return "good_file";
     }
 
@@ -64,7 +63,6 @@ public class LoginMain {
                         out.write("\n");
                     }
                 }
-
             }
             out.close();
         }catch (IOException e){
