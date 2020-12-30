@@ -15,7 +15,7 @@ public class LoginMain {
 
     }
 
-    public void getFile(){
+    public String getFile(){
         // Finds text file associated with file_name
         // Raise error/ask to create file if file does not exist
         try {
@@ -23,14 +23,18 @@ public class LoginMain {
             Scanner s = new Scanner(in_file);
             while(s.hasNextLine()){
                 String line = s.nextLine();
+                if(!line.matches("\\S* \\S* \\S*")){
+                    return "bad_file";
+                }
                 this.array.add(line);
             }
             s.close();
         }
         catch (FileNotFoundException e){
-            System.out.println(e);
+            return "no_file";
         }
 
+        return "good_file";
     }
 
     public void setFile(){
