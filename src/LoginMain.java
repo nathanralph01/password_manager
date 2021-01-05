@@ -6,9 +6,10 @@ public class LoginMain {
 
     private String file_name;
     private ArrayList<String> array;
+    private int key;
 
     public LoginMain(String file_name){
-        //this.key = key;
+        this.key = 79;
         this.file_name = file_name + ".txt";
         this.array = new ArrayList();
 
@@ -22,9 +23,9 @@ public class LoginMain {
             Scanner s = new Scanner(in_file);
             while(s.hasNextLine()){
                 String line = s.nextLine();
-                if(!line.matches("\\S* \\S* \\S*")){
-                    return "bad_file";
-                }
+                //if(!line.matches("\\S* \\S* \\S*")){
+                    //return "bad_file";
+                //}
                 this.array.add(line);
             }
             s.close();
@@ -53,6 +54,7 @@ public class LoginMain {
 
     public void editFile(){
         try{
+            encryptArray();
             File out_file = new File(this.file_name);
             BufferedWriter out = new BufferedWriter(new FileWriter(out_file));
             if(out_file.exists()) {
@@ -71,11 +73,33 @@ public class LoginMain {
     }
 
     public ArrayList<String> getArray(){
+        this.decryptArray();
         return this.array;
     }
 
     public void setArray(ArrayList<String> new_array){
         this.array = new_array;
     }
+
+    public void encryptArray(){
+        for(int i = 0; i < this.array.size(); i++){
+            char[] char_arr  = this.array.get(i).toCharArray();
+            for(int j =0; j < char_arr.length; j++){
+                char_arr[j] += this.key;
+            }
+            this.array.set(i, String.valueOf(char_arr));
+        }
+    }
+
+    public void decryptArray(){
+        for(int i = 0; i < this.array.size(); i++){
+            char[] char_arr  = this.array.get(i).toCharArray();
+            for(int j =0; j < char_arr.length; j++){
+                char_arr[j] -= this.key;
+            }
+            this.array.set(i, String.valueOf(char_arr));
+        }
+    }
+
 
 }
